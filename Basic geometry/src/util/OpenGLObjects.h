@@ -17,9 +17,9 @@
 class OpenGLObject
 {
 public:
-	OpenGLObject() : ID(0) {};
-	virtual ~OpenGLObject() {};
-	virtual GLuint getID() const { return ID; }
+	OpenGLObject() : ID(0) {}
+    virtual ~OpenGLObject() {}
+	virtual GLuint GetID() const { return ID; }
 	virtual void Bind() = 0;
 	virtual void Unbind() = 0;
 
@@ -27,49 +27,111 @@ protected:
 	GLuint ID;
 };
 
-// Vertex Array Object 
-class VAO : public OpenGLObject
+class VertexArrayObject : public OpenGLObject
 {
 public:
-	VAO() { glGenVertexArrays(1, &ID); }
-	~VAO() { 
-        glDeleteVertexArrays(1, &ID);
+	VertexArrayObject() { glGenVertexArrays(1, &ID); }
+	~VertexArrayObject() { 
         Unbind(); 
+        glDeleteVertexArrays(1, &ID);
     }
 
-	void Bind()		override { glBindVertexArray(ID); }
-	void Unbind()	override { glBindVertexArray(0); }
+	void Bind()	override { glBindVertexArray(ID); }
+	void Unbind() override { glBindVertexArray(0); }
 };
 
-// Vertex Buffer Object 
-class VBO : public OpenGLObject
+class VertexBufferObject : public OpenGLObject
 {
 public:
-	VBO() { glGenBuffers(1, &ID); }
-	~VBO() { 
-        glDeleteBuffers(1, &ID);
+	VertexBufferObject() { glGenBuffers(1, &ID); }
+	~VertexBufferObject() { 
         Unbind(); 
+        glDeleteBuffers(1, &ID);
     }
 
-	void Bind()		override { glBindBuffer(GL_ARRAY_BUFFER, ID); }
-	void Unbind()	override { glBindBuffer(GL_ARRAY_BUFFER, 0); }
+	void Bind()	override { glBindBuffer(GL_ARRAY_BUFFER, ID); }
+	void Unbind() override { glBindBuffer(GL_ARRAY_BUFFER, 0); }
 	void SetData(size_t size, const void* data) {
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
 };
 
-// Elements Buffer Object 
-class EBO : public OpenGLObject
+class ElementsBufferObject : public OpenGLObject
 {
 public:
-	EBO() { glGenBuffers(1, &ID); }
-	~EBO() { Unbind(); }
+	ElementsBufferObject() { glGenBuffers(1, &ID); }
+	~ElementsBufferObject() { Unbind(); }
 
 	void Bind() override { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID); }
 	void Unbind() override { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }
 	void SetData(size_t size, const void* data) {
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
+};
+
+class RenderBufferObject : public OpenGLObject
+{
+public:
+    RenderBufferObject(GLsizei width, GLsizei height) {
+        glGenRenderbuffers(1, &ID); 
+        glBindRenderbuffer(GL_RENDERBUFFER, ID); 
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+    }
+    ~RenderBufferObject() {}
+
+    void Bind() override {}
+    void Unbind() override {}
+};
+
+class TextureColorBuffer : public OpenGLObject
+{
+public:
+    TextureColorBuffer() { glGenTextures(1, &ID); }
+    ~TextureColorBuffer() {
+        Unbind(); 
+        glDeleteTextures(1, &ID);
+    }
+
+    void Bind() override { glBindTexture(GL_TEXTURE_2D, ID); }
+    void Unbind() override { glBindTexture(GL_TEXTURE_2D, 0); }
+};
+
+class FrameBufferObject : public OpenGLObject
+{
+public:
+    FrameBufferObject() { glGenFramebuffers(1, &ID); }
+    ~FrameBufferObject() {
+        Unbind(); 
+        glDeleteFramebuffers(1, &ID);
+    }
+
+    void AddTexture(TextureColorBuffer& tcb) {
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, tcb.GetID(), 0);
+    }
+
+    void AddRenderBuffer(RenderBufferObject& rbo) {
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo.GetID()); 
+    }
+
+    void Bind() override { 
+        glBindFramebuffer(GL_FRAMEBUFFER, ID); 
+    }
+
+    void Unbind() override {
+        try {
+            if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+                throw("Framebuffer is not complete!");
+        }
+        catch (std::exception& ex) {
+            std::cerr << "FrameBuffer exception: "
+                << ex.what() << std::endl;
+        }
+        catch (...) {
+            std::cerr << "FrameBuffer exception: "
+                << "Undefined exception" << std::endl;
+        }
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
 };
 
 class Texture : public OpenGLObject
