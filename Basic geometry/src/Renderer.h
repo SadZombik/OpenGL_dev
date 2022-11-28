@@ -21,11 +21,13 @@ public:
         try {
             static Renderer renderer;
             return renderer;
-        } catch(std::exception& ex) {
+        } 
+        catch (std::exception& ex) {
             std::cerr << "Renderer exception: " 
                 << ex.what() << std::endl;
             throw;
-        } catch(...) {
+        }
+        catch (...) {
             std::cerr << "Renderer exception: "
                 << "Unexpected exception" << std::endl;
             throw;

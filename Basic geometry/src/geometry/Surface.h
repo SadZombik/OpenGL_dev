@@ -16,9 +16,9 @@ public:
 private:
 	float m_Width, m_Height;
 
-	VAO m_SurfaceVAO, m_LightVao;
-	VBO m_VBO;
-	EBO m_EBO;
+	VertexArrayObject m_SurfaceVAO, m_LightVao;
+	VertexBufferObject m_VBO;
+	ElementsBufferObject m_EBO;
 
 	Texture m_SurfaceTexture;
 

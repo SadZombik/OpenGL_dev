@@ -22,8 +22,8 @@ private:
 	Texture m_DiffuseMap;
 	Texture m_SpecularMap;
 
-	VAO m_CubeVao, m_LightVao;
-	VBO m_Vbo;
+	VertexArrayObject m_CubeVao, m_LightVao;
+	VertexBufferObject m_Vbo;
 
 	float m_EdgeLength;
 	static const float m_Vertices[288];
