@@ -30,6 +30,9 @@
     <ClCompile Include="src\geometry\Surface.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\geometry\Cubemap.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\util\Camera.h">
@@ -59,11 +62,16 @@
     <ClInclude Include="src\geometry\GeometryObject.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="src\geometry\Cubemap.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\cube\vertex.glsl" />
     <None Include="res\shaders\cube\fragment.glsl" />
     <None Include="res\shaders\surface\fragment.glsl" />
     <None Include="res\shaders\surface\vertex.glsl" />
+    <None Include="res\shaders\skybox\vertex.glsl" />
+    <None Include="res\shaders\skybox\fragment.glsl" />
   </ItemGroup>
 </Project>

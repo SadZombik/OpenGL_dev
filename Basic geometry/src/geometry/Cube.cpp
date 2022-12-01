@@ -79,9 +79,9 @@ void Cube::Update(const Camera& camera)
     // Material options
     m_Shader.SetFloat("material.shininess", 32.0f);
 
-    glm::mat4 projection = camera.GetPerspectiveMatrix();
-    glm::mat4 view = camera.GetViewMatrix();
-    glm::mat4 model = glm::mat4(1.0f);
+    projection = camera.GetPerspectiveMatrix();
+    view = camera.GetViewMatrix();
+    model = glm::mat4(1.0f);
     model = glm::translate(model, m_Pos);
     model = glm::scale(model, glm::vec3(m_EdgeLength, m_EdgeLength, m_EdgeLength));
 

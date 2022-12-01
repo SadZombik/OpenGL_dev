@@ -12,6 +12,7 @@
 #include "util/InputHandler.h"
 #include "geometry/Cube.h"
 #include "geometry/Surface.h"
+#include "geometry/Cubemap.h"
 
 class Renderer
 {
@@ -71,7 +72,17 @@ private:
             Objects.push_back(&cubes[i]);
         }
 
-
+        std::vector<std::string> faces
+        {
+            "res/textures/skybox/right.jpg",
+            "res/textures/skybox/left.jpg",
+            "res/textures/skybox/top.jpg",
+            "res/textures/skybox/bottom.jpg",
+            "res/textures/skybox/front.jpg",
+            "res/textures/skybox/back.jpg"
+        };
+        Cubemap skybox(faces);
+        Objects.push_back(&skybox);
 
         // Loop until the user closes the window
         while (!glfwWindowShouldClose(window)) {

@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\geometry\Cube.cpp" />
+    <ClCompile Include="src\geometry\Cubemap.cpp" />
     <ClCompile Include="src\geometry\Surface.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\util\InputHandler.cpp" />
@@ -141,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\geometry\Cube.h" />
+    <ClInclude Include="src\geometry\Cubemap.h" />
     <ClInclude Include="src\geometry\GeometryObject.h" />
     <ClInclude Include="src\geometry\Surface.h" />
     <ClInclude Include="src\Renderer.h" />
@@ -153,6 +155,8 @@
   <ItemGroup>
     <None Include="res\shaders\cube\fragment.glsl" />
     <None Include="res\shaders\cube\vertex.glsl" />
+    <None Include="res\shaders\skybox\fragment.glsl" />
+    <None Include="res\shaders\skybox\vertex.glsl" />
     <None Include="res\shaders\surface\fragment.glsl" />
     <None Include="res\shaders\surface\vertex.glsl" />
   </ItemGroup>

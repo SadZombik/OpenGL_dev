@@ -29,6 +29,10 @@ private:
 	static const float m_Vertices[288];
 	const unsigned int ID;
 	static unsigned int idGen;
+
+	glm::mat4 model;
+	glm::mat4 view;
+	glm::mat4 projection;
 };
 
 
