@@ -12,6 +12,9 @@ public:
 
 	void Init();
 	void Update(const Camera& camera) override;
+	void SetSize(const float width, const float height);
+	const float GetWidth() const { return m_Width; }
+	const float GetHeight() const { return m_Height; }
 
 private:
 	float m_Width, m_Height;
@@ -23,9 +26,13 @@ private:
 	Texture m_SurfaceTexture;
 
 	const unsigned int ID;
-	static const float m_Vertices[20];
-	static const unsigned int m_Indices[6];
+	static const float s_Vertices[32];
+	static const unsigned int s_Indices[6];
 	static unsigned int idGen;
+
+	glm::mat4 model;
+	glm::mat4 view;
+	glm::mat4 projection;
 };
 
 #endif // !SURFACE_H

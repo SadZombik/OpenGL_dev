@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <iostream>
+#include <string>
 
 #include "Camera.h"
 
@@ -17,6 +18,7 @@ public:
 	}
 
 	static void SetCamera(Camera* newCam);
+	static bool GetMouseMode() { return Get().m_MouseMode; }
 	static void Update();
 
 	static void keyboard_processing(GLFWwindow* window);
@@ -27,9 +29,11 @@ public:
 private:
 	InputHandler(Camera* camera);
 
+	static bool m_MouseMode;
+
 	// Тайминги
-	static float deltaTime;	// время между текущим кадром и последним кадром
-	static float lastFrame;
+	static float m_DeltaTime;	// время между текущим кадром и последним кадром
+	static float m_LastFrame;
 
 	static Camera* m_camera;
 };

@@ -1,8 +1,8 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#define S_WIDTH 1280
-#define S_HEIGHT 720
+#define S_WIDTH 1920
+#define S_HEIGHT 1080
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

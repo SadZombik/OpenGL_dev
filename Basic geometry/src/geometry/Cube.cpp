@@ -35,7 +35,7 @@ void Cube::Init()
     m_SpecularMap = Texture("res/textures/container_2_specular.png");
 
     m_Vbo.Bind();
-    m_Vbo.SetData(sizeof(m_Vertices), m_Vertices);
+    m_Vbo.SetData(sizeof(s_Vertices), s_Vertices);
     m_CubeVao.Bind();
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
@@ -68,7 +68,7 @@ void Cube::Update(const Camera& camera)
     m_Shader.SetFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
     
     // Lighting options
-    m_Shader.SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+    m_Shader.SetVec3("light.ambient", 0.5f, 0.5f, 0.5f);
     m_Shader.SetVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
     m_Shader.SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
     
@@ -103,7 +103,7 @@ void Cube::SetEdgeLength(const float value)
 
 // statics
 unsigned int Cube::idGen = 0;
-const float Cube::m_Vertices[] = {
+const float Cube::s_Vertices[] = {
     // координаты        // нормали           // текстурные координаты
    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
     0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,

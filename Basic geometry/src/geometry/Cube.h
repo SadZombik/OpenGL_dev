@@ -26,7 +26,7 @@ private:
 	VertexBufferObject m_Vbo;
 
 	float m_EdgeLength;
-	static const float m_Vertices[288];
+	static const float s_Vertices[288];
 	const unsigned int ID;
 	static unsigned int idGen;
 
@@ -34,6 +34,5 @@ private:
 	glm::mat4 view;
 	glm::mat4 projection;
 };
-
 
 #endif // !CUBE_H
